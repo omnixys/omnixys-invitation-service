@@ -29,6 +29,8 @@ export class InvitationMapper {
       maxInvitees: invitation.maxInvitees,
       invitedByInvitationId: n2u(invitation.invitedByInvitationId),
       invitedByUserId: n2u(invitation.invitedByUserId),
+      confirmationSentAt: n2u(invitation.confirmationSentAt),
+      confirmationResendCount: invitation.confirmationResendCount,
       email: n2u(invitation.email),
       phoneNumber: n2u(invitation.phoneNumber),
       selectedInvitedBy: invitation.selectedInvitedBy ?? [],

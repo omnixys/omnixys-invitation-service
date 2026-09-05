@@ -117,4 +117,12 @@ export class InvitationPayload {
     nullable: true,
   })
   invitedByUserId?: string;
+
+  @Field(() => GraphQLISODateTime, {
+    nullable: true,
+  })
+  confirmationSentAt?: Date;
+
+  @Field(() => Int)
+  confirmationResendCount!: number;
 }

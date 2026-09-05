@@ -7,6 +7,7 @@ import { GuestMutationResolver } from './resolver/guest-mutation.resolver.js';
 import { AdminMutationResolver } from './resolver/invitation-admin-mutation.resolver.js';
 import { InvitationFieldResolver } from './resolver/invitation-field.resolver.js';
 import { InvitationQueryResolver } from './resolver/invitation-query.resolver.js';
+import { GuestConfirmationService } from './service/guest-confirmation.service.js';
 import { GuestWriteService } from './service/guest-write.service.js';
 import { AdminWriteService } from './service/invitation-admin.write.service.js';
 import { InvitationPreviewService } from './service/invitation-preview.service.js';
@@ -31,7 +32,14 @@ import { Module } from '@nestjs/common';
     PhoneNumberLoader,
     LoaderFactory,
     InvitationPreviewService,
+    GuestConfirmationService,
   ],
-  exports: [InvitationReadService, AdminWriteService, InvitationWriteService, GuestWriteService],
+  exports: [
+    InvitationReadService,
+    AdminWriteService,
+    InvitationWriteService,
+    GuestWriteService,
+    GuestConfirmationService,
+  ],
 })
 export class InvitationModule {}

@@ -36,13 +36,17 @@ model Invitation {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  pendingContactId String? @unique @map("pending_contact_id")
+  pendingContactId String? @unique @map("pending_contact_id") @db.Uuid
+
+  pendingContactPayload   Json?     @map("pending_contact_payload")
+  confirmationSentAt      DateTime? @map("confirmation_sent_at")
+  confirmationResendCount Int       @default(0) @map("confirmation_resend_count")
 
   rsvpChoice RsvpChoice? @map("rsvp_choice")
   rsvpAt     DateTime?   @map("rsvp_at")
 
   approvedAt       DateTime? @map("approved_at")
-  approvedByUserId String?   @map("approved_by_user_id")
+  approvedByUserId String?   @map("approved_by_user_id") @db.Uuid
 
   maxInvitees Int @default(0) @map("max_invitees")
 
@@ -116,6 +120,7 @@ model EventSettingsProjection {
   eventId                    String    @unique @map("event_id") @db.Uuid
   tenantId                   String?   @map("tenant_id") @db.Uuid
   name                       String?   @map("name")
+  startsAt                   DateTime? @map("starts_at")
   endsAt                     DateTime? @map("ends_at")
   approvalMode               String?   @map("approval_mode")
   allowPublicRsvp            Boolean   @default(false) @map("allow_public_rsvp")
@@ -124,6 +129,9 @@ model EventSettingsProjection {
   maxSeats                   Int?      @map("max_seats")
   scheduleTicketRelease      Boolean   @default(false) @map("schedule_ticket_release")
   ticketReleaseAt            DateTime? @map("ticket_release_at")
+  guestConfirmationReminderEnabled Boolean   @default(true) @map("guest_confirmation_reminder_enabled")
+  guestConfirmationReminderPresets String[] @default([]) @map("guest_confirmation_reminder_presets")
+  guestConfirmationMaxResends      Int?      @map("guest_confirmation_max_resends")
   updatedAt                  DateTime? @updatedAt @map("updated_at")
 
   @@index([tenantId])
@@ -136,7 +144,7 @@ model AnalyticsOutbox {
   topic          String
   payload        Json
   correlationId  String?   @map("correlation_id")
-  actorId        String?   @map("actor_id")
+  actorId        String?   @map("actor_id") @db.Uuid
   attempts       Int       @default(0)
   nextAttemptAt  DateTime  @default(now()) @map("next_attempt_at")
   lockedAt       DateTime? @map("locked_at")

@@ -25,7 +25,10 @@ export class GuestMutationResolver {
     private readonly loggerService: OmnixysLogger,
     private readonly guestService: GuestWriteService,
   ) {
-    this.logger = this.loggerService.log(this.constructor.name);
+    this.logger = this.loggerService.log(
+      'service:invitation',
+      this.constructor.name,
+    );
   }
 
   @UseGuards(CookieAuthGuard)

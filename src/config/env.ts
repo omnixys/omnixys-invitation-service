@@ -139,6 +139,18 @@ export const env = {
 
   DEFAULT_TENANT_ID: getEnv('DEFAULT_TENANT_ID', ''),
 
+  GUEST_REMINDER_AFTER_MS: getEnv('GUEST_REMINDER_AFTER_MS', '86400000', {
+    transform: toNumber,
+  }),
+  GUEST_REMINDER_MAX_RESENDS: getEnv('GUEST_REMINDER_MAX_RESENDS', '2', {
+    transform: toNumber,
+  }),
+  GUEST_CONFIRMATION_RESEND_COOLDOWN_MS: getEnv(
+    'GUEST_CONFIRMATION_RESEND_COOLDOWN_MS',
+    '900000',
+    { transform: toNumber },
+  ),
+
   KEYCLOAK_HEALTH_URL: getEnv('KEYCLOAK_HEALTH_URL', ''),
   TEMPO_HEALTH_URL: getEnv('TEMPO_HEALTH_URL', ''),
   PROMETHEUS_HEALTH_URL: getEnv('PROMETHEUS_HEALTH_URL', ''),

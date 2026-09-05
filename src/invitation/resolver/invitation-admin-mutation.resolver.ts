@@ -8,6 +8,7 @@ import {
   ImportInvitationsResult,
 } from '../models/input/import-invitation.input.js';
 import { InvitationPayload } from '../models/payloads/invitation.payload.js';
+import { ResendGuestConfirmationsPayload } from '../models/payloads/resend-guest-confirmations.payload.js';
 import { SuccessPayload } from '../models/payloads/success.payload.js';
 import { AdminWriteService } from '../service/invitation-admin.write.service.js';
 import { UseGuards } from '@nestjs/common';
@@ -38,7 +39,10 @@ export class AdminMutationResolver {
     private readonly loggerService: OmnixysLogger,
     private readonly adminService: AdminWriteService,
   ) {
-    this.logger = this.loggerService.log(this.constructor.name);
+    this.logger = this.loggerService.log(
+      'service:invitation',
+      this.constructor.name,
+    );
   }
 
   @UseGuards(CookieAuthGuard, RoleGuard, EventPermissionGuard)
@@ -75,7 +79,7 @@ export class AdminMutationResolver {
         );
       }
 
-      this.logger.debug('Import invitations requested', {
+      this.logger.debug('Import invitations requested: %o', {
         actorId: user.id,
         eventId: input.eventId,
         key: input.key,
@@ -89,7 +93,7 @@ export class AdminMutationResolver {
         user.id,
       );
 
-      this.logger.debug('Import completed', {
+      this.logger.debug('Import completed: %o', {
         actorId: user.id,
         duplicates: result.duplicates.length,
         imported: result.imported,
@@ -164,7 +168,7 @@ export class AdminMutationResolver {
         );
       }
 
-      this.logger.debug('Bulk approve requested', {
+      this.logger.debug('Bulk approve requested: %o', {
         actorId: user.id,
         count: input.invitationIds.length,
       });
@@ -203,5 +207,31 @@ export class AdminMutationResolver {
       actorId: user.id,
       activeEventId,
     });
+  }
+
+  @UseGuards(CookieAuthGuard, RoleGuard, EventPermissionGuard)
+  @Roles(RealmRoleType.USER)
+  @EventPermissions(EventPermissionKey.ApproveGuests)
+  @Mutation(() => ResendGuestConfirmationsPayload, {
+    description:
+      'Re-sends the confirmation message (email or WhatsApp) to guests who have not yet completed their registration.',
+  })
+  async resendGuestConfirmations(
+    @Args('invitationIds', { type: () => [ID] })
+    invitationIds: string[],
+    @CurrentEventId() activeEventId: string | undefined,
+    @CurrentUser() user: CurrentUserData,
+  ): Promise<ResendGuestConfirmationsPayload> {
+    if (!invitationIds?.length) {
+      throw new InvitationValidationException(
+        'Invitation IDs must not be empty',
+      );
+    }
+
+    return this.adminService.resendGuestConfirmations(
+      invitationIds,
+      user.id,
+      activeEventId,
+    );
   }
 }

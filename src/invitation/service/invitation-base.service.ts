@@ -24,7 +24,7 @@ export abstract class InvitationBaseService {
 
   protected constructor(loggerPlusService: OmnixysLogger, prismaService: PrismaService) {
     this.loggerPlusService = loggerPlusService;
-    this.logger = loggerPlusService.log(this.constructor.name);
+    this.logger = loggerPlusService.log(this.constructor.name, 'service:invitation');
     this.prismaService = prismaService;
   }
 

@@ -27,10 +27,12 @@ export type AggregateInvitation = {
 }
 
 export type InvitationAvgAggregateOutputType = {
+  confirmationResendCount: number | null
   maxInvitees: number | null
 }
 
 export type InvitationSumAggregateOutputType = {
+  confirmationResendCount: number | null
   maxInvitees: number | null
 }
 
@@ -52,6 +54,8 @@ export type InvitationMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   pendingContactId: string | null
+  confirmationSentAt: Date | null
+  confirmationResendCount: number | null
   rsvpChoice: $Enums.RsvpChoice | null
   rsvpAt: Date | null
   approvedAt: Date | null
@@ -79,6 +83,8 @@ export type InvitationMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   pendingContactId: string | null
+  confirmationSentAt: Date | null
+  confirmationResendCount: number | null
   rsvpChoice: $Enums.RsvpChoice | null
   rsvpAt: Date | null
   approvedAt: Date | null
@@ -107,6 +113,9 @@ export type InvitationCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   pendingContactId: number
+  pendingContactPayload: number
+  confirmationSentAt: number
+  confirmationResendCount: number
   rsvpChoice: number
   rsvpAt: number
   approvedAt: number
@@ -119,10 +128,12 @@ export type InvitationCountAggregateOutputType = {
 
 
 export type InvitationAvgAggregateInputType = {
+  confirmationResendCount?: true
   maxInvitees?: true
 }
 
 export type InvitationSumAggregateInputType = {
+  confirmationResendCount?: true
   maxInvitees?: true
 }
 
@@ -144,6 +155,8 @@ export type InvitationMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   pendingContactId?: true
+  confirmationSentAt?: true
+  confirmationResendCount?: true
   rsvpChoice?: true
   rsvpAt?: true
   approvedAt?: true
@@ -171,6 +184,8 @@ export type InvitationMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   pendingContactId?: true
+  confirmationSentAt?: true
+  confirmationResendCount?: true
   rsvpChoice?: true
   rsvpAt?: true
   approvedAt?: true
@@ -199,6 +214,9 @@ export type InvitationCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   pendingContactId?: true
+  pendingContactPayload?: true
+  confirmationSentAt?: true
+  confirmationResendCount?: true
   rsvpChoice?: true
   rsvpAt?: true
   approvedAt?: true
@@ -314,6 +332,9 @@ export type InvitationGroupByOutputType = {
   createdAt: Date
   updatedAt: Date | null
   pendingContactId: string | null
+  pendingContactPayload: runtime.JsonValue | null
+  confirmationSentAt: Date | null
+  confirmationResendCount: number
   rsvpChoice: $Enums.RsvpChoice | null
   rsvpAt: Date | null
   approvedAt: Date | null
@@ -364,11 +385,14 @@ export type InvitationWhereInput = {
   status?: Prisma.EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
   createdAt?: Prisma.DateTimeFilter<"Invitation"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
-  pendingContactId?: Prisma.StringNullableFilter<"Invitation"> | string | null
+  pendingContactId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
+  pendingContactPayload?: Prisma.JsonNullableFilter<"Invitation">
+  confirmationSentAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
+  confirmationResendCount?: Prisma.IntFilter<"Invitation"> | number
   rsvpChoice?: Prisma.EnumRsvpChoiceNullableFilter<"Invitation"> | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
-  approvedByUserId?: Prisma.StringNullableFilter<"Invitation"> | string | null
+  approvedByUserId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
   maxInvitees?: Prisma.IntFilter<"Invitation"> | number
   invitedByInvitationId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
   invitedByUserId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
@@ -396,6 +420,9 @@ export type InvitationOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pendingContactId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pendingContactPayload?: Prisma.SortOrderInput | Prisma.SortOrder
+  confirmationSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  confirmationResendCount?: Prisma.SortOrder
   rsvpChoice?: Prisma.SortOrderInput | Prisma.SortOrder
   rsvpAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -430,10 +457,13 @@ export type InvitationWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
   createdAt?: Prisma.DateTimeFilter<"Invitation"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
+  pendingContactPayload?: Prisma.JsonNullableFilter<"Invitation">
+  confirmationSentAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
+  confirmationResendCount?: Prisma.IntFilter<"Invitation"> | number
   rsvpChoice?: Prisma.EnumRsvpChoiceNullableFilter<"Invitation"> | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
-  approvedByUserId?: Prisma.StringNullableFilter<"Invitation"> | string | null
+  approvedByUserId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
   maxInvitees?: Prisma.IntFilter<"Invitation"> | number
   invitedByInvitationId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
   invitedByUserId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
@@ -461,6 +491,9 @@ export type InvitationOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pendingContactId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pendingContactPayload?: Prisma.SortOrderInput | Prisma.SortOrder
+  confirmationSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  confirmationResendCount?: Prisma.SortOrder
   rsvpChoice?: Prisma.SortOrderInput | Prisma.SortOrder
   rsvpAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -496,11 +529,14 @@ export type InvitationScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumInvitationStatusWithAggregatesFilter<"Invitation"> | $Enums.InvitationStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Invitation"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invitation"> | Date | string | null
-  pendingContactId?: Prisma.StringNullableWithAggregatesFilter<"Invitation"> | string | null
+  pendingContactId?: Prisma.UuidNullableWithAggregatesFilter<"Invitation"> | string | null
+  pendingContactPayload?: Prisma.JsonNullableWithAggregatesFilter<"Invitation">
+  confirmationSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invitation"> | Date | string | null
+  confirmationResendCount?: Prisma.IntWithAggregatesFilter<"Invitation"> | number
   rsvpChoice?: Prisma.EnumRsvpChoiceNullableWithAggregatesFilter<"Invitation"> | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invitation"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invitation"> | Date | string | null
-  approvedByUserId?: Prisma.StringNullableWithAggregatesFilter<"Invitation"> | string | null
+  approvedByUserId?: Prisma.UuidNullableWithAggregatesFilter<"Invitation"> | string | null
   maxInvitees?: Prisma.IntWithAggregatesFilter<"Invitation"> | number
   invitedByInvitationId?: Prisma.UuidNullableWithAggregatesFilter<"Invitation"> | string | null
   invitedByUserId?: Prisma.UuidNullableWithAggregatesFilter<"Invitation"> | string | null
@@ -525,6 +561,9 @@ export type InvitationCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -555,6 +594,9 @@ export type InvitationUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -585,6 +627,9 @@ export type InvitationUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -615,6 +660,9 @@ export type InvitationUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -645,6 +693,9 @@ export type InvitationCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -673,6 +724,9 @@ export type InvitationUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -700,6 +754,9 @@ export type InvitationUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -751,6 +808,9 @@ export type InvitationCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   pendingContactId?: Prisma.SortOrder
+  pendingContactPayload?: Prisma.SortOrder
+  confirmationSentAt?: Prisma.SortOrder
+  confirmationResendCount?: Prisma.SortOrder
   rsvpChoice?: Prisma.SortOrder
   rsvpAt?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
@@ -761,6 +821,7 @@ export type InvitationCountOrderByAggregateInput = {
 }
 
 export type InvitationAvgOrderByAggregateInput = {
+  confirmationResendCount?: Prisma.SortOrder
   maxInvitees?: Prisma.SortOrder
 }
 
@@ -782,6 +843,8 @@ export type InvitationMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   pendingContactId?: Prisma.SortOrder
+  confirmationSentAt?: Prisma.SortOrder
+  confirmationResendCount?: Prisma.SortOrder
   rsvpChoice?: Prisma.SortOrder
   rsvpAt?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
@@ -809,6 +872,8 @@ export type InvitationMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   pendingContactId?: Prisma.SortOrder
+  confirmationSentAt?: Prisma.SortOrder
+  confirmationResendCount?: Prisma.SortOrder
   rsvpChoice?: Prisma.SortOrder
   rsvpAt?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
@@ -819,6 +884,7 @@ export type InvitationMinOrderByAggregateInput = {
 }
 
 export type InvitationSumOrderByAggregateInput = {
+  confirmationResendCount?: Prisma.SortOrder
   maxInvitees?: Prisma.SortOrder
 }
 
@@ -888,16 +954,16 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type NullableEnumRsvpChoiceFieldUpdateOperationsInput = {
-  set?: $Enums.RsvpChoice | null
-}
-
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type NullableEnumRsvpChoiceFieldUpdateOperationsInput = {
+  set?: $Enums.RsvpChoice | null
 }
 
 export type InvitationUpdateOneWithoutPlusOnesNestedInput = {
@@ -971,6 +1037,9 @@ export type InvitationCreateWithoutPlusOnesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1000,6 +1069,9 @@ export type InvitationUncheckedCreateWithoutPlusOnesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1034,6 +1106,9 @@ export type InvitationCreateWithoutInvitedByInvitationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1063,6 +1138,9 @@ export type InvitationUncheckedCreateWithoutInvitedByInvitationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1113,6 +1191,9 @@ export type InvitationUpdateWithoutPlusOnesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1142,6 +1223,9 @@ export type InvitationUncheckedUpdateWithoutPlusOnesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1189,11 +1273,14 @@ export type InvitationScalarWhereInput = {
   status?: Prisma.EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
   createdAt?: Prisma.DateTimeFilter<"Invitation"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
-  pendingContactId?: Prisma.StringNullableFilter<"Invitation"> | string | null
+  pendingContactId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
+  pendingContactPayload?: Prisma.JsonNullableFilter<"Invitation">
+  confirmationSentAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
+  confirmationResendCount?: Prisma.IntFilter<"Invitation"> | number
   rsvpChoice?: Prisma.EnumRsvpChoiceNullableFilter<"Invitation"> | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Invitation"> | Date | string | null
-  approvedByUserId?: Prisma.StringNullableFilter<"Invitation"> | string | null
+  approvedByUserId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
   maxInvitees?: Prisma.IntFilter<"Invitation"> | number
   invitedByInvitationId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
   invitedByUserId?: Prisma.UuidNullableFilter<"Invitation"> | string | null
@@ -1218,6 +1305,9 @@ export type InvitationCreateWithoutPhoneNumbersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1247,6 +1337,9 @@ export type InvitationUncheckedCreateWithoutPhoneNumbersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1292,6 +1385,9 @@ export type InvitationUpdateWithoutPhoneNumbersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1321,6 +1417,9 @@ export type InvitationUncheckedUpdateWithoutPhoneNumbersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1350,6 +1449,9 @@ export type InvitationCreateManyInvitedByInvitationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   pendingContactId?: string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Date | string | null
+  confirmationResendCount?: number
   rsvpChoice?: $Enums.RsvpChoice | null
   rsvpAt?: Date | string | null
   approvedAt?: Date | string | null
@@ -1377,6 +1479,9 @@ export type InvitationUpdateWithoutInvitedByInvitationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1406,6 +1511,9 @@ export type InvitationUncheckedUpdateWithoutInvitedByInvitationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1435,6 +1543,9 @@ export type InvitationUncheckedUpdateManyWithoutInvitedByInvitationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pendingContactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pendingContactPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  confirmationSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmationResendCount?: Prisma.IntFieldUpdateOperationsInput | number
   rsvpChoice?: Prisma.NullableEnumRsvpChoiceFieldUpdateOperationsInput | $Enums.RsvpChoice | null
   rsvpAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1502,6 +1613,9 @@ export type InvitationSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   createdAt?: boolean
   updatedAt?: boolean
   pendingContactId?: boolean
+  pendingContactPayload?: boolean
+  confirmationSentAt?: boolean
+  confirmationResendCount?: boolean
   rsvpChoice?: boolean
   rsvpAt?: boolean
   approvedAt?: boolean
@@ -1534,6 +1648,9 @@ export type InvitationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   createdAt?: boolean
   updatedAt?: boolean
   pendingContactId?: boolean
+  pendingContactPayload?: boolean
+  confirmationSentAt?: boolean
+  confirmationResendCount?: boolean
   rsvpChoice?: boolean
   rsvpAt?: boolean
   approvedAt?: boolean
@@ -1563,6 +1680,9 @@ export type InvitationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   createdAt?: boolean
   updatedAt?: boolean
   pendingContactId?: boolean
+  pendingContactPayload?: boolean
+  confirmationSentAt?: boolean
+  confirmationResendCount?: boolean
   rsvpChoice?: boolean
   rsvpAt?: boolean
   approvedAt?: boolean
@@ -1592,6 +1712,9 @@ export type InvitationSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   pendingContactId?: boolean
+  pendingContactPayload?: boolean
+  confirmationSentAt?: boolean
+  confirmationResendCount?: boolean
   rsvpChoice?: boolean
   rsvpAt?: boolean
   approvedAt?: boolean
@@ -1601,7 +1724,7 @@ export type InvitationSelectScalar = {
   invitedByUserId?: boolean
 }
 
-export type InvitationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "firstName" | "lastName" | "eventId" | "eventName" | "eventEndsAt" | "autoApproveOnAccept" | "guestProfileId" | "email" | "phoneNumber" | "selectedInvitedBy" | "guestNote" | "plusOneAgeCategory" | "status" | "createdAt" | "updatedAt" | "pendingContactId" | "rsvpChoice" | "rsvpAt" | "approvedAt" | "approvedByUserId" | "maxInvitees" | "invitedByInvitationId" | "invitedByUserId", ExtArgs["result"]["invitation"]>
+export type InvitationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "firstName" | "lastName" | "eventId" | "eventName" | "eventEndsAt" | "autoApproveOnAccept" | "guestProfileId" | "email" | "phoneNumber" | "selectedInvitedBy" | "guestNote" | "plusOneAgeCategory" | "status" | "createdAt" | "updatedAt" | "pendingContactId" | "pendingContactPayload" | "confirmationSentAt" | "confirmationResendCount" | "rsvpChoice" | "rsvpAt" | "approvedAt" | "approvedByUserId" | "maxInvitees" | "invitedByInvitationId" | "invitedByUserId", ExtArgs["result"]["invitation"]>
 export type InvitationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invitedByInvitation?: boolean | Prisma.Invitation$invitedByInvitationArgs<ExtArgs>
   plusOnes?: boolean | Prisma.Invitation$plusOnesArgs<ExtArgs>
@@ -1641,6 +1764,9 @@ export type $InvitationPayload<ExtArgs extends runtime.Types.Extensions.Internal
     createdAt: Date
     updatedAt: Date | null
     pendingContactId: string | null
+    pendingContactPayload: runtime.JsonValue | null
+    confirmationSentAt: Date | null
+    confirmationResendCount: number
     rsvpChoice: $Enums.RsvpChoice | null
     rsvpAt: Date | null
     approvedAt: Date | null
@@ -2092,6 +2218,9 @@ export interface InvitationFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Invitation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Invitation", 'DateTime'>
   readonly pendingContactId: Prisma.FieldRef<"Invitation", 'String'>
+  readonly pendingContactPayload: Prisma.FieldRef<"Invitation", 'Json'>
+  readonly confirmationSentAt: Prisma.FieldRef<"Invitation", 'DateTime'>
+  readonly confirmationResendCount: Prisma.FieldRef<"Invitation", 'Int'>
   readonly rsvpChoice: Prisma.FieldRef<"Invitation", 'RsvpChoice'>
   readonly rsvpAt: Prisma.FieldRef<"Invitation", 'DateTime'>
   readonly approvedAt: Prisma.FieldRef<"Invitation", 'DateTime'>

@@ -1,4 +1,4 @@
-import { env } from '../config/env.js';
+import { GuestConfirmationService } from '../invitation/service/guest-confirmation.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { Injectable } from '@nestjs/common';
 import {
@@ -7,20 +7,7 @@ import {
   DelayedJobKeys,
   ValkeyLockService,
 } from '@omnixys/cache-ts';
-import { ContextAccessor } from '@omnixys/context-ts';
-import { KafkaProducerService, KafkaTopics } from '@omnixys/kafka-ts';
 import { OmnixysLogger } from '@omnixys/logger-ts';
-
-const { DEFAULT_TENANT_ID } = env;
-
-function currentTenantId(): string {
-  const context = ContextAccessor.get();
-  return (
-    context?.tenant?.tenantId ??
-    context?.principal?.tenantId ??
-    DEFAULT_TENANT_ID
-  );
-}
 
 @Injectable()
 @DelayedJobHandler()
@@ -29,11 +16,11 @@ export class TicketGenerationHandler {
 
   constructor(
     private readonly prisma: PrismaService,
-    private readonly producer: KafkaProducerService,
     private readonly lock: ValkeyLockService,
+    private readonly guestConfirmation: GuestConfirmationService,
     logger: OmnixysLogger,
   ) {
-    this.logger = logger.log(this.constructor.name);
+    this.logger = logger.log(this.constructor.name, 'service:invitation');
   }
 
   @DelayedJob(DelayedJobKeys.ticket.generate)
@@ -49,7 +36,7 @@ export class TicketGenerationHandler {
     const token = await this.lock.acquireLock(lockKey, 60000);
 
     if (!token) {
-      this.logger.debug('Lock already held for ticket generation', {
+      this.logger.debug('Lock already held for ticket generation: %o', {
         invitationId,
       });
       return;
@@ -70,15 +57,18 @@ export class TicketGenerationHandler {
       });
 
       if (!invitation) {
-        this.logger.warn('Invitation not found for delayed ticket generation', {
-          invitationId,
-        });
+        this.logger.warn(
+          'Invitation not found for delayed ticket generation: %o',
+          {
+            invitationId,
+          },
+        );
         return;
       }
 
       if (invitation.status !== 'APPROVED') {
         this.logger.debug(
-          'Invitation no longer approved – skipping ticket generation',
+          'Invitation no longer approved – skipping ticket generation: %o',
           {
             invitationId,
             status: invitation.status,
@@ -89,7 +79,7 @@ export class TicketGenerationHandler {
 
       if (invitation.guestProfileId) {
         this.logger.debug(
-          'Guest profile already exists – ticket was already generated',
+          'Guest profile already exists – ticket was already generated: %o',
           {
             invitationId,
           },
@@ -99,7 +89,7 @@ export class TicketGenerationHandler {
 
       if (!invitation.pendingContactId) {
         this.logger.warn(
-          'Pending contact missing for delayed ticket generation',
+          'Pending contact missing for delayed ticket generation: %o',
           { invitationId },
         );
         return;
@@ -107,33 +97,25 @@ export class TicketGenerationHandler {
 
       if (!invitation.firstName || !invitation.lastName) {
         this.logger.warn(
-          'Guest name incomplete for delayed ticket generation',
+          'Guest name incomplete for delayed ticket generation: %o',
           { invitationId },
         );
         return;
       }
 
-      this.logger.info('Delayed ticket generation firing', { invitationId });
-
-      await this.producer.send({
-        topic: KafkaTopics.notification.confirmGuest,
-        payload: {
-          token: invitation.pendingContactId,
-          eventName: invitation.eventName ?? '',
-          seatId: seatId ?? undefined,
-          eventEndsAt: invitation.eventEndsAt ?? new Date(),
-        },
-        meta: {
-          service: 'invitation-service',
-          operation: 'Delayed ticket generation',
-          version: '1',
-          type: 'EVENT',
-          actorId,
-          tenantId: currentTenantId(),
-        },
+      this.logger.info('Delayed ticket generation firing: %o', {
+        invitationId,
       });
 
-      this.logger.info('Delayed ticket generation completed', { invitationId });
+      await this.guestConfirmation.sendFirstConfirmation({
+        invitationId,
+        seatId,
+        actorId,
+      });
+
+      this.logger.info('Delayed ticket generation completed: %o', {
+        invitationId,
+      });
     } finally {
       await this.lock.releaseLock(lockKey, token);
     }

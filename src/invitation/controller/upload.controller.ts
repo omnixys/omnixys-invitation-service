@@ -65,7 +65,7 @@ export class InvitationUploadController {
     private readonly loggerService: OmnixysLogger,
     private readonly previewService: InvitationPreviewService,
   ) {
-    this.logger = this.loggerService.log(this.constructor.name);
+    this.logger = this.loggerService.log(this.constructor.name, 'service:invitation');
   }
 
   /* =========================================================================
@@ -118,7 +118,7 @@ export class InvitationUploadController {
         contentType: part.mimetype,
       });
 
-      this.logger.debug('Upload successful', {
+      this.logger.debug('Upload successful: %o', {
         actorId: user.id,
         filename: part.filename,
         mimetype: part.mimetype,

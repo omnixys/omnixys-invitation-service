@@ -31,10 +31,12 @@ export type AggregateEventSettingsProjection = {
 
 export type EventSettingsProjectionAvgAggregateOutputType = {
   maxSeats: number | null
+  guestConfirmationMaxResends: number | null
 }
 
 export type EventSettingsProjectionSumAggregateOutputType = {
   maxSeats: number | null
+  guestConfirmationMaxResends: number | null
 }
 
 export type EventSettingsProjectionMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type EventSettingsProjectionMinAggregateOutputType = {
   eventId: string | null
   tenantId: string | null
   name: string | null
+  startsAt: Date | null
   endsAt: Date | null
   approvalMode: string | null
   allowPublicRsvp: boolean | null
@@ -50,6 +53,8 @@ export type EventSettingsProjectionMinAggregateOutputType = {
   maxSeats: number | null
   scheduleTicketRelease: boolean | null
   ticketReleaseAt: Date | null
+  guestConfirmationReminderEnabled: boolean | null
+  guestConfirmationMaxResends: number | null
   updatedAt: Date | null
 }
 
@@ -58,6 +63,7 @@ export type EventSettingsProjectionMaxAggregateOutputType = {
   eventId: string | null
   tenantId: string | null
   name: string | null
+  startsAt: Date | null
   endsAt: Date | null
   approvalMode: string | null
   allowPublicRsvp: boolean | null
@@ -66,6 +72,8 @@ export type EventSettingsProjectionMaxAggregateOutputType = {
   maxSeats: number | null
   scheduleTicketRelease: boolean | null
   ticketReleaseAt: Date | null
+  guestConfirmationReminderEnabled: boolean | null
+  guestConfirmationMaxResends: number | null
   updatedAt: Date | null
 }
 
@@ -74,6 +82,7 @@ export type EventSettingsProjectionCountAggregateOutputType = {
   eventId: number
   tenantId: number
   name: number
+  startsAt: number
   endsAt: number
   approvalMode: number
   allowPublicRsvp: number
@@ -82,6 +91,9 @@ export type EventSettingsProjectionCountAggregateOutputType = {
   maxSeats: number
   scheduleTicketRelease: number
   ticketReleaseAt: number
+  guestConfirmationReminderEnabled: number
+  guestConfirmationReminderPresets: number
+  guestConfirmationMaxResends: number
   updatedAt: number
   _all: number
 }
@@ -89,10 +101,12 @@ export type EventSettingsProjectionCountAggregateOutputType = {
 
 export type EventSettingsProjectionAvgAggregateInputType = {
   maxSeats?: true
+  guestConfirmationMaxResends?: true
 }
 
 export type EventSettingsProjectionSumAggregateInputType = {
   maxSeats?: true
+  guestConfirmationMaxResends?: true
 }
 
 export type EventSettingsProjectionMinAggregateInputType = {
@@ -100,6 +114,7 @@ export type EventSettingsProjectionMinAggregateInputType = {
   eventId?: true
   tenantId?: true
   name?: true
+  startsAt?: true
   endsAt?: true
   approvalMode?: true
   allowPublicRsvp?: true
@@ -108,6 +123,8 @@ export type EventSettingsProjectionMinAggregateInputType = {
   maxSeats?: true
   scheduleTicketRelease?: true
   ticketReleaseAt?: true
+  guestConfirmationReminderEnabled?: true
+  guestConfirmationMaxResends?: true
   updatedAt?: true
 }
 
@@ -116,6 +133,7 @@ export type EventSettingsProjectionMaxAggregateInputType = {
   eventId?: true
   tenantId?: true
   name?: true
+  startsAt?: true
   endsAt?: true
   approvalMode?: true
   allowPublicRsvp?: true
@@ -124,6 +142,8 @@ export type EventSettingsProjectionMaxAggregateInputType = {
   maxSeats?: true
   scheduleTicketRelease?: true
   ticketReleaseAt?: true
+  guestConfirmationReminderEnabled?: true
+  guestConfirmationMaxResends?: true
   updatedAt?: true
 }
 
@@ -132,6 +152,7 @@ export type EventSettingsProjectionCountAggregateInputType = {
   eventId?: true
   tenantId?: true
   name?: true
+  startsAt?: true
   endsAt?: true
   approvalMode?: true
   allowPublicRsvp?: true
@@ -140,6 +161,9 @@ export type EventSettingsProjectionCountAggregateInputType = {
   maxSeats?: true
   scheduleTicketRelease?: true
   ticketReleaseAt?: true
+  guestConfirmationReminderEnabled?: true
+  guestConfirmationReminderPresets?: true
+  guestConfirmationMaxResends?: true
   updatedAt?: true
   _all?: true
 }
@@ -235,6 +259,7 @@ export type EventSettingsProjectionGroupByOutputType = {
   eventId: string
   tenantId: string | null
   name: string | null
+  startsAt: Date | null
   endsAt: Date | null
   approvalMode: string | null
   allowPublicRsvp: boolean
@@ -243,6 +268,9 @@ export type EventSettingsProjectionGroupByOutputType = {
   maxSeats: number | null
   scheduleTicketRelease: boolean
   ticketReleaseAt: Date | null
+  guestConfirmationReminderEnabled: boolean
+  guestConfirmationReminderPresets: string[]
+  guestConfirmationMaxResends: number | null
   updatedAt: Date | null
   _count: EventSettingsProjectionCountAggregateOutputType | null
   _avg: EventSettingsProjectionAvgAggregateOutputType | null
@@ -274,6 +302,7 @@ export type EventSettingsProjectionWhereInput = {
   eventId?: Prisma.UuidFilter<"EventSettingsProjection"> | string
   tenantId?: Prisma.UuidNullableFilter<"EventSettingsProjection"> | string | null
   name?: Prisma.StringNullableFilter<"EventSettingsProjection"> | string | null
+  startsAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
   endsAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
   approvalMode?: Prisma.StringNullableFilter<"EventSettingsProjection"> | string | null
   allowPublicRsvp?: Prisma.BoolFilter<"EventSettingsProjection"> | boolean
@@ -282,6 +311,9 @@ export type EventSettingsProjectionWhereInput = {
   maxSeats?: Prisma.IntNullableFilter<"EventSettingsProjection"> | number | null
   scheduleTicketRelease?: Prisma.BoolFilter<"EventSettingsProjection"> | boolean
   ticketReleaseAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolFilter<"EventSettingsProjection"> | boolean
+  guestConfirmationReminderPresets?: Prisma.StringNullableListFilter<"EventSettingsProjection">
+  guestConfirmationMaxResends?: Prisma.IntNullableFilter<"EventSettingsProjection"> | number | null
   updatedAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
 }
 
@@ -290,6 +322,7 @@ export type EventSettingsProjectionOrderByWithRelationInput = {
   eventId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  startsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   endsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvalMode?: Prisma.SortOrderInput | Prisma.SortOrder
   allowPublicRsvp?: Prisma.SortOrder
@@ -298,6 +331,9 @@ export type EventSettingsProjectionOrderByWithRelationInput = {
   maxSeats?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduleTicketRelease?: Prisma.SortOrder
   ticketReleaseAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  guestConfirmationReminderEnabled?: Prisma.SortOrder
+  guestConfirmationReminderPresets?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
@@ -309,6 +345,7 @@ export type EventSettingsProjectionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.EventSettingsProjectionWhereInput | Prisma.EventSettingsProjectionWhereInput[]
   tenantId?: Prisma.UuidNullableFilter<"EventSettingsProjection"> | string | null
   name?: Prisma.StringNullableFilter<"EventSettingsProjection"> | string | null
+  startsAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
   endsAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
   approvalMode?: Prisma.StringNullableFilter<"EventSettingsProjection"> | string | null
   allowPublicRsvp?: Prisma.BoolFilter<"EventSettingsProjection"> | boolean
@@ -317,6 +354,9 @@ export type EventSettingsProjectionWhereUniqueInput = Prisma.AtLeast<{
   maxSeats?: Prisma.IntNullableFilter<"EventSettingsProjection"> | number | null
   scheduleTicketRelease?: Prisma.BoolFilter<"EventSettingsProjection"> | boolean
   ticketReleaseAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolFilter<"EventSettingsProjection"> | boolean
+  guestConfirmationReminderPresets?: Prisma.StringNullableListFilter<"EventSettingsProjection">
+  guestConfirmationMaxResends?: Prisma.IntNullableFilter<"EventSettingsProjection"> | number | null
   updatedAt?: Prisma.DateTimeNullableFilter<"EventSettingsProjection"> | Date | string | null
 }, "id" | "eventId">
 
@@ -325,6 +365,7 @@ export type EventSettingsProjectionOrderByWithAggregationInput = {
   eventId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  startsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   endsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvalMode?: Prisma.SortOrderInput | Prisma.SortOrder
   allowPublicRsvp?: Prisma.SortOrder
@@ -333,6 +374,9 @@ export type EventSettingsProjectionOrderByWithAggregationInput = {
   maxSeats?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduleTicketRelease?: Prisma.SortOrder
   ticketReleaseAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  guestConfirmationReminderEnabled?: Prisma.SortOrder
+  guestConfirmationReminderPresets?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EventSettingsProjectionCountOrderByAggregateInput
   _avg?: Prisma.EventSettingsProjectionAvgOrderByAggregateInput
@@ -349,6 +393,7 @@ export type EventSettingsProjectionScalarWhereWithAggregatesInput = {
   eventId?: Prisma.UuidWithAggregatesFilter<"EventSettingsProjection"> | string
   tenantId?: Prisma.UuidNullableWithAggregatesFilter<"EventSettingsProjection"> | string | null
   name?: Prisma.StringNullableWithAggregatesFilter<"EventSettingsProjection"> | string | null
+  startsAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EventSettingsProjection"> | Date | string | null
   endsAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EventSettingsProjection"> | Date | string | null
   approvalMode?: Prisma.StringNullableWithAggregatesFilter<"EventSettingsProjection"> | string | null
   allowPublicRsvp?: Prisma.BoolWithAggregatesFilter<"EventSettingsProjection"> | boolean
@@ -357,6 +402,9 @@ export type EventSettingsProjectionScalarWhereWithAggregatesInput = {
   maxSeats?: Prisma.IntNullableWithAggregatesFilter<"EventSettingsProjection"> | number | null
   scheduleTicketRelease?: Prisma.BoolWithAggregatesFilter<"EventSettingsProjection"> | boolean
   ticketReleaseAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EventSettingsProjection"> | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolWithAggregatesFilter<"EventSettingsProjection"> | boolean
+  guestConfirmationReminderPresets?: Prisma.StringNullableListFilter<"EventSettingsProjection">
+  guestConfirmationMaxResends?: Prisma.IntNullableWithAggregatesFilter<"EventSettingsProjection"> | number | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EventSettingsProjection"> | Date | string | null
 }
 
@@ -365,6 +413,7 @@ export type EventSettingsProjectionCreateInput = {
   eventId: string
   tenantId?: string | null
   name?: string | null
+  startsAt?: Date | string | null
   endsAt?: Date | string | null
   approvalMode?: string | null
   allowPublicRsvp?: boolean
@@ -373,6 +422,9 @@ export type EventSettingsProjectionCreateInput = {
   maxSeats?: number | null
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: Date | string | null
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionCreateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: number | null
   updatedAt?: Date | string | null
 }
 
@@ -381,6 +433,7 @@ export type EventSettingsProjectionUncheckedCreateInput = {
   eventId: string
   tenantId?: string | null
   name?: string | null
+  startsAt?: Date | string | null
   endsAt?: Date | string | null
   approvalMode?: string | null
   allowPublicRsvp?: boolean
@@ -389,6 +442,9 @@ export type EventSettingsProjectionUncheckedCreateInput = {
   maxSeats?: number | null
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: Date | string | null
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionCreateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: number | null
   updatedAt?: Date | string | null
 }
 
@@ -397,6 +453,7 @@ export type EventSettingsProjectionUpdateInput = {
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvalMode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allowPublicRsvp?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -405,6 +462,9 @@ export type EventSettingsProjectionUpdateInput = {
   maxSeats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   scheduleTicketRelease?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ticketReleaseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionUpdateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -413,6 +473,7 @@ export type EventSettingsProjectionUncheckedUpdateInput = {
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvalMode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allowPublicRsvp?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -421,6 +482,9 @@ export type EventSettingsProjectionUncheckedUpdateInput = {
   maxSeats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   scheduleTicketRelease?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ticketReleaseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionUpdateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -429,6 +493,7 @@ export type EventSettingsProjectionCreateManyInput = {
   eventId: string
   tenantId?: string | null
   name?: string | null
+  startsAt?: Date | string | null
   endsAt?: Date | string | null
   approvalMode?: string | null
   allowPublicRsvp?: boolean
@@ -437,6 +502,9 @@ export type EventSettingsProjectionCreateManyInput = {
   maxSeats?: number | null
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: Date | string | null
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionCreateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: number | null
   updatedAt?: Date | string | null
 }
 
@@ -445,6 +513,7 @@ export type EventSettingsProjectionUpdateManyMutationInput = {
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvalMode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allowPublicRsvp?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -453,6 +522,9 @@ export type EventSettingsProjectionUpdateManyMutationInput = {
   maxSeats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   scheduleTicketRelease?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ticketReleaseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionUpdateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -461,6 +533,7 @@ export type EventSettingsProjectionUncheckedUpdateManyInput = {
   eventId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvalMode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   allowPublicRsvp?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -469,6 +542,9 @@ export type EventSettingsProjectionUncheckedUpdateManyInput = {
   maxSeats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   scheduleTicketRelease?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ticketReleaseAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  guestConfirmationReminderEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  guestConfirmationReminderPresets?: Prisma.EventSettingsProjectionUpdateguestConfirmationReminderPresetsInput | string[]
+  guestConfirmationMaxResends?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -477,6 +553,7 @@ export type EventSettingsProjectionCountOrderByAggregateInput = {
   eventId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   approvalMode?: Prisma.SortOrder
   allowPublicRsvp?: Prisma.SortOrder
@@ -485,11 +562,15 @@ export type EventSettingsProjectionCountOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
   scheduleTicketRelease?: Prisma.SortOrder
   ticketReleaseAt?: Prisma.SortOrder
+  guestConfirmationReminderEnabled?: Prisma.SortOrder
+  guestConfirmationReminderPresets?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type EventSettingsProjectionAvgOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrder
 }
 
 export type EventSettingsProjectionMaxOrderByAggregateInput = {
@@ -497,6 +578,7 @@ export type EventSettingsProjectionMaxOrderByAggregateInput = {
   eventId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   approvalMode?: Prisma.SortOrder
   allowPublicRsvp?: Prisma.SortOrder
@@ -505,6 +587,8 @@ export type EventSettingsProjectionMaxOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
   scheduleTicketRelease?: Prisma.SortOrder
   ticketReleaseAt?: Prisma.SortOrder
+  guestConfirmationReminderEnabled?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -513,6 +597,7 @@ export type EventSettingsProjectionMinOrderByAggregateInput = {
   eventId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   approvalMode?: Prisma.SortOrder
   allowPublicRsvp?: Prisma.SortOrder
@@ -521,11 +606,18 @@ export type EventSettingsProjectionMinOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
   scheduleTicketRelease?: Prisma.SortOrder
   ticketReleaseAt?: Prisma.SortOrder
+  guestConfirmationReminderEnabled?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type EventSettingsProjectionSumOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
+  guestConfirmationMaxResends?: Prisma.SortOrder
+}
+
+export type EventSettingsProjectionCreateguestConfirmationReminderPresetsInput = {
+  set: string[]
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -536,6 +628,11 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type EventSettingsProjectionUpdateguestConfirmationReminderPresetsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 
 
 export type EventSettingsProjectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -543,6 +640,7 @@ export type EventSettingsProjectionSelect<ExtArgs extends runtime.Types.Extensio
   eventId?: boolean
   tenantId?: boolean
   name?: boolean
+  startsAt?: boolean
   endsAt?: boolean
   approvalMode?: boolean
   allowPublicRsvp?: boolean
@@ -551,6 +649,9 @@ export type EventSettingsProjectionSelect<ExtArgs extends runtime.Types.Extensio
   maxSeats?: boolean
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: boolean
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: boolean
+  guestConfirmationMaxResends?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["eventSettingsProjection"]>
 
@@ -559,6 +660,7 @@ export type EventSettingsProjectionSelectCreateManyAndReturn<ExtArgs extends run
   eventId?: boolean
   tenantId?: boolean
   name?: boolean
+  startsAt?: boolean
   endsAt?: boolean
   approvalMode?: boolean
   allowPublicRsvp?: boolean
@@ -567,6 +669,9 @@ export type EventSettingsProjectionSelectCreateManyAndReturn<ExtArgs extends run
   maxSeats?: boolean
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: boolean
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: boolean
+  guestConfirmationMaxResends?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["eventSettingsProjection"]>
 
@@ -575,6 +680,7 @@ export type EventSettingsProjectionSelectUpdateManyAndReturn<ExtArgs extends run
   eventId?: boolean
   tenantId?: boolean
   name?: boolean
+  startsAt?: boolean
   endsAt?: boolean
   approvalMode?: boolean
   allowPublicRsvp?: boolean
@@ -583,6 +689,9 @@ export type EventSettingsProjectionSelectUpdateManyAndReturn<ExtArgs extends run
   maxSeats?: boolean
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: boolean
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: boolean
+  guestConfirmationMaxResends?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["eventSettingsProjection"]>
 
@@ -591,6 +700,7 @@ export type EventSettingsProjectionSelectScalar = {
   eventId?: boolean
   tenantId?: boolean
   name?: boolean
+  startsAt?: boolean
   endsAt?: boolean
   approvalMode?: boolean
   allowPublicRsvp?: boolean
@@ -599,10 +709,13 @@ export type EventSettingsProjectionSelectScalar = {
   maxSeats?: boolean
   scheduleTicketRelease?: boolean
   ticketReleaseAt?: boolean
+  guestConfirmationReminderEnabled?: boolean
+  guestConfirmationReminderPresets?: boolean
+  guestConfirmationMaxResends?: boolean
   updatedAt?: boolean
 }
 
-export type EventSettingsProjectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "tenantId" | "name" | "endsAt" | "approvalMode" | "allowPublicRsvp" | "requireApprovalForPlusOnes" | "rsvpDeadline" | "maxSeats" | "scheduleTicketRelease" | "ticketReleaseAt" | "updatedAt", ExtArgs["result"]["eventSettingsProjection"]>
+export type EventSettingsProjectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "tenantId" | "name" | "startsAt" | "endsAt" | "approvalMode" | "allowPublicRsvp" | "requireApprovalForPlusOnes" | "rsvpDeadline" | "maxSeats" | "scheduleTicketRelease" | "ticketReleaseAt" | "guestConfirmationReminderEnabled" | "guestConfirmationReminderPresets" | "guestConfirmationMaxResends" | "updatedAt", ExtArgs["result"]["eventSettingsProjection"]>
 
 export type $EventSettingsProjectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "EventSettingsProjection"
@@ -612,6 +725,7 @@ export type $EventSettingsProjectionPayload<ExtArgs extends runtime.Types.Extens
     eventId: string
     tenantId: string | null
     name: string | null
+    startsAt: Date | null
     endsAt: Date | null
     approvalMode: string | null
     allowPublicRsvp: boolean
@@ -620,6 +734,9 @@ export type $EventSettingsProjectionPayload<ExtArgs extends runtime.Types.Extens
     maxSeats: number | null
     scheduleTicketRelease: boolean
     ticketReleaseAt: Date | null
+    guestConfirmationReminderEnabled: boolean
+    guestConfirmationReminderPresets: string[]
+    guestConfirmationMaxResends: number | null
     updatedAt: Date | null
   }, ExtArgs["result"]["eventSettingsProjection"]>
   composites: {}
@@ -1048,6 +1165,7 @@ export interface EventSettingsProjectionFieldRefs {
   readonly eventId: Prisma.FieldRef<"EventSettingsProjection", 'String'>
   readonly tenantId: Prisma.FieldRef<"EventSettingsProjection", 'String'>
   readonly name: Prisma.FieldRef<"EventSettingsProjection", 'String'>
+  readonly startsAt: Prisma.FieldRef<"EventSettingsProjection", 'DateTime'>
   readonly endsAt: Prisma.FieldRef<"EventSettingsProjection", 'DateTime'>
   readonly approvalMode: Prisma.FieldRef<"EventSettingsProjection", 'String'>
   readonly allowPublicRsvp: Prisma.FieldRef<"EventSettingsProjection", 'Boolean'>
@@ -1056,6 +1174,9 @@ export interface EventSettingsProjectionFieldRefs {
   readonly maxSeats: Prisma.FieldRef<"EventSettingsProjection", 'Int'>
   readonly scheduleTicketRelease: Prisma.FieldRef<"EventSettingsProjection", 'Boolean'>
   readonly ticketReleaseAt: Prisma.FieldRef<"EventSettingsProjection", 'DateTime'>
+  readonly guestConfirmationReminderEnabled: Prisma.FieldRef<"EventSettingsProjection", 'Boolean'>
+  readonly guestConfirmationReminderPresets: Prisma.FieldRef<"EventSettingsProjection", 'String[]'>
+  readonly guestConfirmationMaxResends: Prisma.FieldRef<"EventSettingsProjection", 'Int'>
   readonly updatedAt: Prisma.FieldRef<"EventSettingsProjection", 'DateTime'>
 }
     

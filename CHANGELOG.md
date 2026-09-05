@@ -3,6 +3,45 @@
 All notable changes in this project will be documented in this file.
 
 
+## [4.0.0](https://github.com/omnixys/invitation-service/compare/v3.5.0...v4.0.0) (2026-09-05)
+
+### Confirmations
+
+* **Confirmations:** schedule reminder presets from event settings ([](https://github.com/omnixys/invitation-service/commit/7df5fc97b170f90a1c882af6e8d3222752512f6e))
+
+### Deps
+
+* **Deps:** update omnixys deps ([](https://github.com/omnixys/invitation-service/commit/559d58e63eb7cbc59229de1e5db8be0877a53605))
+
+### Identity
+
+* **Identity:** document U/K identity conventions in AGENTS.md ([](https://github.com/omnixys/invitation-service/commit/5aea35219bea392da1ab1ff6fb63cf2b3ae36610))
+* **Identity:** remove empty-string actorId fallback in event milestone metadata ([](https://github.com/omnixys/invitation-service/commit/a34502b740d0fec3c3c1a883a4da123ff9eda82a))
+* **Identity:** replace fabricated actorId with deterministic UUIDv7, fail-closed, remove empty string fallbacks ([](https://github.com/omnixys/invitation-service/commit/ef23b6747e544a922e7ebd5ec618792767541cec))
+
+### Invitation
+
+* **Invitation:** rewire omnixys service deps to file: ([](https://github.com/omnixys/invitation-service/commit/720fbf0310e3e9226cdb02e977a0569994d87d71))
+* **Invitation:** type identity reference fields as UUID ([](https://github.com/omnixys/invitation-service/commit/2df2bdf334fe646b3ef3b02d5bc61ec28f6c194f))
+
+### Invitations
+
+* **Invitations:** persist pending guest payload for confirmation resend ([](https://github.com/omnixys/invitation-service/commit/c8975e2af3b75b1def52ada3c714b1877e4c06b8))
+* **Invitations:** resend guest confirmations manually and via scheduled reminder ([](https://github.com/omnixys/invitation-service/commit/54b12da9d292e79b26ec2058244ea09632f3efe8))
+
+### Logging
+
+* **Logging:** add service:invitation provenance source to logger acquisitions ([](https://github.com/omnixys/invitation-service/commit/86b723255cf71e213fcefbc73d81086e802d181e))
+* **Logging:** add missing format placeholders to structured log calls ([](https://github.com/omnixys/invitation-service/commit/014fab34e515b3fc39e4ef18566e11ee7775ee75))
+
+### Other
+
+* **Other:** Merge pull request #9 from omnixys/migration/uuid-v7 ([](https://github.com/omnixys/invitation-service/commit/301c26aecf417e759d240611bd3035f7c75221ba)), closes [#9](https://github.com/omnixys/invitation-service/issues/9)
+
+### Runtime
+
+* **Runtime:** require node 26.8.1 and pnpm 11.24.0 ([](https://github.com/omnixys/invitation-service/commit/df48b94bc44be7c0fbf5c2f78c107c6878d4ae39))
+
 ## [3.5.0](https://github.com/omnixys/invitation-service/compare/v3.4.4...v3.5.0) (2026-08-28)
 
 ### Approvals
